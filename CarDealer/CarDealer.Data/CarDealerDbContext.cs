@@ -1,6 +1,6 @@
-﻿namespace CarDelaer.Data
+﻿namespace CarDealer.Data
 {
-    using CarDelaer.Data.Models;
+    using CarDealer.Data.Models;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 

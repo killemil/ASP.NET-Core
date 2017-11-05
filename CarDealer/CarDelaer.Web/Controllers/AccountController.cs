@@ -10,7 +10,7 @@
     using Microsoft.Extensions.Logging;
     using CarDelaer.Web.Models.AccountViewModels;
     using CarDelaer.Web.Services;
-    using CarDelaer.Data.Models;
+    using CarDealer.Data.Models;
 
     [Authorize]
     [Route("[controller]/[action]")]

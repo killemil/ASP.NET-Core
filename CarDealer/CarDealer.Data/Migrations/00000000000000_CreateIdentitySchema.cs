@@ -1,4 +1,4 @@
-﻿namespace CarDelaer.Data.Migrations
+﻿namespace CarDealer.Data.Migrations
 {
     using System;
     using Microsoft.EntityFrameworkCore.Metadata;

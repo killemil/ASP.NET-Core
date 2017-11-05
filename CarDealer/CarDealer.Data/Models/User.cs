@@ -1,4 +1,4 @@
-﻿namespace CarDelaer.Data.Models
+﻿namespace CarDealer.Data.Models
 {
     using Microsoft.AspNetCore.Identity;
     

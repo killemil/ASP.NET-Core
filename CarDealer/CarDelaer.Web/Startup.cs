@@ -7,8 +7,8 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using CarDelaer.Web.Services;
-    using CarDelaer.Data;
-    using CarDelaer.Data.Models;
+    using CarDealer.Data;
+    using CarDealer.Data.Models;
 
     public class Startup
     {

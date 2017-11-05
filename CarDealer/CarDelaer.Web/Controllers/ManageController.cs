@@ -1,8 +1,7 @@
-﻿using System;
-using System.Linq;
-
-namespace CarDelaer.Web.Controllers
+﻿namespace CarDelaer.Web.Controllers
 {
+    using System;
+    using System.Linq;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
@@ -13,8 +12,7 @@ namespace CarDelaer.Web.Controllers
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authorization;
-
-    using CarDelaer.Data.Models;
+    using CarDealer.Data.Models;
 
     [Authorize]
     [Route("[controller]/[action]")]
