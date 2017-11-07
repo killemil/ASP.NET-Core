@@ -6,7 +6,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Models.Customers;
     
-
+    [Route("customers")]
     public class CustomersController : Controller
     {
         private readonly ICustomerService customers;
@@ -16,7 +16,27 @@
             this.customers = customers;
         }
 
-        [Route("customers/all/{order}")]
+        [Route("create")]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Route("create")]
+        public IActionResult Create(CustomerCreateModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            this.customers.Create(model.Name, model.BirthDate);
+
+            return Redirect("/");
+        }
+
+        [Route("all/{order}")]
         public IActionResult All(string order)
         {
             var orderDirection = order.ToLower() == "ascending"
@@ -32,7 +52,7 @@
             });
         }
 
-        [Route("customers/{id}")]
+        [Route("{id}")]
         public IActionResult Details(int id)
         {
             return View(this.customers.WithSalesById(id));

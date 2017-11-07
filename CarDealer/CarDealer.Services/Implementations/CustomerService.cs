@@ -6,6 +6,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System;
+    using CarDealer.Data.Models;
 
     public class CustomerService : ICustomerService
     {
@@ -66,6 +67,19 @@
             }
 
             return customer;
+        }
+
+        public void Create(string name, DateTime birthDate)
+        {
+            var customer = new Customer
+            {
+                Name = name,
+                BirthDate = birthDate,
+                IsYoungDriver = DateTime.Now.Year - birthDate.Year < 2 ? true : false
+            };
+
+            db.Customers.Add(customer);
+            db.SaveChanges();
         }
     }
 }

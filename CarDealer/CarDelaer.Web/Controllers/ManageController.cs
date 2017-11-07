@@ -12,6 +12,7 @@
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authorization;
     using CarDealer.Data.Models;
+    using Microsoft.AspNetCore.Mvc.Infrastructure;
 
     [Authorize]
     [Route("[controller]/[action]")]

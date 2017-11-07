@@ -2,6 +2,7 @@
 {
     using CarDealer.Services.Models;
     using CarDealer.Services.Models.Customers;
+    using System;
     using System.Collections.Generic;
 
     public interface ICustomerService
@@ -9,5 +10,7 @@
         IEnumerable<CustomerModel> Ordered(OrderDirection order);
 
         CustomerWithSalesModel WithSalesById(int id);
+
+        void Create(string name, DateTime birthDate);
     }
 }

@@ -10,6 +10,7 @@
     using Microsoft.Extensions.Logging;
     using CarDelaer.Web.Models.AccountViewModels;
     using CarDealer.Data.Models;
+    using Microsoft.AspNetCore.Mvc.Infrastructure;
 
     [Authorize]
     [Route("[controller]/[action]")]
