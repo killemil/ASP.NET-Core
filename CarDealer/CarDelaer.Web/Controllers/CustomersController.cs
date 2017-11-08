@@ -32,7 +32,10 @@
                 return View(model);
             }
 
-            this.customers.Create(model.Name, model.BirthDate, model.IsYoungDriver);
+            this.customers.Create(
+                model.Name, 
+                model.BirthDate, 
+                model.IsYoungDriver);
 
             return RedirectToAction(nameof(All),new { order = OrderDirection.Ascending });
         }

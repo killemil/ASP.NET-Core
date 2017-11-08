@@ -56,7 +56,7 @@
                 })
                 .ToList();
 
-        public void Create(string make, string model, long travelledDistance)
+        public void Create(string make, string model, long travelledDistance, IEnumerable<int> partIds)
         {
             var car = new Car
             {
@@ -64,6 +64,17 @@
                 Model = model,
                 TravelledDistance = travelledDistance
             };
+
+            foreach (var partId in partIds)
+            {
+                var carPart = new PartCar
+                {
+                    Car = car,
+                    PartId = partId
+                };
+                car.Parts.Add(carPart);
+            }
+
 
             this.db.Cars.Add(car);
             this.db.SaveChanges();

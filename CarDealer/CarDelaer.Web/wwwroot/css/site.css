@@ -30,6 +30,10 @@ a.disabled {
     pointer-events: none
 }
 
+select.car-multiple-select {
+    height: 300px;
+}
+
 @media screen and (max-width: 767px) {
     /* Hide captions */
     .carousel-caption {
