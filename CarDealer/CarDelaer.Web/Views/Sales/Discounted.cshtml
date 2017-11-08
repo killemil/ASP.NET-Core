@@ -17,7 +17,7 @@
         @foreach (var sale in Model)
         {
             <tr>
-                <td>@sale.Cars.Make - @sale.Cars.Model</td>
+                <td>@sale.Car.Make - @sale.Car.Model</td>
                 <td>@sale.Customer.Name</td>
                 <td>$@sale.PriceWithDiscount.ToString("F2")</td>
                 <td>$@sale.PriceWithoutDiscount.ToString("F2")</td>

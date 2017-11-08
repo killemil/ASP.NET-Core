@@ -33,8 +33,9 @@
 
             return salesQuery.Select(s => new SaleModel
                 {
+                    Id = s.Id,
                     Discount = s.Discount,
-                    Cars = new CarModel
+                    Car = new CarModel
                     {
                         Make = s.Car.Make,
                         Model = s.Car.Model,
@@ -46,7 +47,6 @@
                         BirthDate = s.Customer.BirthDate,
                         IsYoungDriver = s.Customer.IsYoungDriver
                     },
-                    PriceWithDiscount = s.Car.Parts.Sum(p => p.Part.Price) - (s.Car.Parts.Sum(p => p.Part.Price) * Convert.ToDecimal(s.Discount)),
                     PriceWithoutDiscount = s.Car.Parts.Sum(p => p.Part.Price)
                 })
                 .ToList();
@@ -61,6 +61,5 @@
                     CustomerName = s.Customer.Name
                 })
                 .FirstOrDefault();
-
     }
 }

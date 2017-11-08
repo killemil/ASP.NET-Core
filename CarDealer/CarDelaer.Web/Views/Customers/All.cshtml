@@ -13,6 +13,7 @@
             <th>Name</th>
             <th>Birth Date</th>
             <th>Young Driver</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -20,8 +21,13 @@
         {
             <tr>
                 <td>@customer.Name</td>
-                <td>@customer.BirthDate.ToShortDateString()</td>
+                <td>@customer.BirthDate.ToString("dd/MM/yyyy")</td>
                 <td>@(customer.IsYoungDriver ? "Yes" : "No")</td>
+                <td>
+                    <a href="/customers/@customer.Id" class="btn btn-sm btn-default">Details</a>
+                    <a href="/customers/edit/@customer.Id" class="btn btn-sm btn-warning">Edit</a>
+                </td>
+                
             </tr>
         }
     </tbody>

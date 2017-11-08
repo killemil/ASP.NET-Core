@@ -40,6 +40,7 @@
             return customersQuery
                     .Select(c => new CustomerModel
                     {
+                        Id = c.Id,
                         Name = c.Name,
                         IsYoungDriver = c.IsYoungDriver,
                         BirthDate = c.BirthDate
@@ -61,24 +62,42 @@
                 })
                 .FirstOrDefault();
 
-            if (customer == null)
-            {
-                throw new InvalidOperationException($"Can not find customer with id {id}");
-            }
-
             return customer;
         }
 
-        public void Create(string name, DateTime birthDate)
+        public void Create(string name, DateTime birthDate, bool isYoungDriver)
         {
             var customer = new Customer
             {
                 Name = name,
                 BirthDate = birthDate,
-                IsYoungDriver = DateTime.Now.Year - birthDate.Year < 2 ? true : false
+                IsYoungDriver = isYoungDriver
             };
 
             db.Customers.Add(customer);
+            db.SaveChanges();
+        }
+
+        public CustomerFormModel ById(int id)
+            => this.db.Customers.Where(c => c.Id == id)
+                .Select(c => new CustomerFormModel
+                {
+                    Name = c.Name,
+                    BirthDate = c.BirthDate,
+                    IsYoungDriver = c.IsYoungDriver
+                })
+                .FirstOrDefault();
+
+        public bool Exist(int id)
+            => this.db.Customers.Any(c => c.Id == id);
+
+        public void Edit(int id, string name, DateTime birthDate, bool isYoungDriver)
+        {
+            var customer = this.db.Customers.Find(id);
+            customer.Name = name;
+            customer.BirthDate = birthDate;
+            customer.IsYoungDriver = isYoungDriver;
+
             db.SaveChanges();
         }
     }

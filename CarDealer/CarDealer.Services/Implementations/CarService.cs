@@ -5,6 +5,7 @@
     using CarDealer.Data;
     using System.Linq;
     using CarDealer.Services.Models.Parts;
+    using CarDealer.Data.Models;
 
     public class CarService : ICarService
     {
@@ -30,6 +31,7 @@
 
         public IEnumerable<CarWithPartsModel> CarWithParts()
             =>  this.db.Cars
+                .OrderByDescending(c=> c.Id)
                 .Select(c => new CarWithPartsModel
                 {
                     Make = c.Make,
@@ -45,6 +47,7 @@
 
         public IEnumerable<CarModel> All()
             => this.db.Cars
+                .OrderByDescending(c=> c.Id)
                 .Select(c => new CarModel
                 {
                     Make = c.Make,
@@ -52,5 +55,18 @@
                     TravelledDistance = c.TravelledDistance
                 })
                 .ToList();
+
+        public void Create(string make, string model, long travelledDistance)
+        {
+            var car = new Car
+            {
+                Make = make,
+                Model = model,
+                TravelledDistance = travelledDistance
+            };
+
+            this.db.Cars.Add(car);
+            this.db.SaveChanges();
+        }
     }
 }

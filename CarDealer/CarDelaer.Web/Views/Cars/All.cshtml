@@ -4,6 +4,10 @@
 }
 
 <h2>@ViewData["Title"]</h2>
+<div>
+    <a href="/cars/create" class="btn btn-lg btn-info">Add Car</a>
+    <hr />
+</div>
 
 <table class="table table-hover table-bordered table-striped">
     <thead>
@@ -24,7 +28,7 @@
         {
             <tr>
                 <td>
-                    @car.Make
+                    <a href="/cars/@car.Make">@car.Make</a>
                 </td>
                 <td>
                     @car.Model

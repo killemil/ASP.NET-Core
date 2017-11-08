@@ -14,14 +14,24 @@
             this.db = db;
         }
 
-        public IEnumerable<SupplierModel> All(bool isImporter)
+        public IEnumerable<SupplierListingModel> AllListing(bool isImporter)
             => this.db.Suppliers
                 .Where(s => s.IsImporter == isImporter)
-                .Select(s => new SupplierModel
+                .Select(s => new SupplierListingModel
                 {
                     Id = s.Id,
                     Name = s.Name,
                     TotalParts = s.Parts.Count
+                })
+                .ToList();
+
+        public IEnumerable<SupplierModel> All()
+            => this.db.Suppliers
+                .OrderBy(c => c.Name)
+                .Select(s => new SupplierModel
+                {
+                    Id = s.Id,
+                    Name = s.Name
                 })
                 .ToList();
     }

@@ -13,16 +13,18 @@
             <th>Customer Name</th>
             <th>Price With Discount</th>
             <th>Price Without Discount</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach(var sale in Model)
         {
             <tr>
-                <td>@sale.Cars.Make - @sale.Cars.Model</td>
+                <td>@sale.Car.Make - @sale.Car.Model</td>
                 <td>@sale.Customer.Name</td>
                 <td>$@sale.PriceWithDiscount.ToString("F2")</td>
                 <td>$@sale.PriceWithoutDiscount.ToString("F2")</td>
+                <td><a href="/sales/@sale.Id" class="btn btn-sm btn-default">More Details</a></td>
             </tr>
         }
     </tbody>

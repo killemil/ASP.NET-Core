@@ -37,5 +37,28 @@
         {
             return View(this.cars.CarWithParts());
         }
+
+        [Route(nameof(Create))]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Route(nameof(Create))]
+        public IActionResult Create(CarFormModel carModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(carModel);
+            }
+
+            this.cars.Create(
+                carModel.Make, 
+                carModel.Model, 
+                carModel.TravelledDistance);
+
+            return RedirectToAction(nameof(All));
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace CarDelaer.Web.Controllers
 {
+    using Infrastructure.Extensions;
     using CarDealer.Services;
     using CarDealer.Services.Models;
     using CarDealer.Services.Models.Customers;
@@ -24,16 +25,47 @@
 
         [HttpPost]
         [Route("create")]
-        public IActionResult Create(CustomerCreateModel model)
+        public IActionResult Create(CustomerFormModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            this.customers.Create(model.Name, model.BirthDate);
+            this.customers.Create(model.Name, model.BirthDate, model.IsYoungDriver);
 
-            return Redirect("/");
+            return RedirectToAction(nameof(All),new { order = OrderDirection.Ascending });
+        }
+
+        [Route(nameof(Edit) + "/{id}")]
+        public IActionResult Edit(int id)
+        {
+            var customer = this.customers.ById(id);
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+            return View(customer);
+        }
+
+        [HttpPost]
+        [Route(nameof(Edit) + "/{id}")]
+        public IActionResult Edit(int id, CustomerFormModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            if (!this.customers.Exist(id))
+            {
+                return NotFound();
+            }
+
+            this.customers.Edit(id, model.Name, model.BirthDate, model.IsYoungDriver);
+
+            return RedirectToAction(nameof(All), new { order = OrderDirection.Ascending });
         }
 
         [Route("all/{order}")]
@@ -55,7 +87,7 @@
         [Route("{id}")]
         public IActionResult Details(int id)
         {
-            return View(this.customers.WithSalesById(id));
+            return this.ViewOrNotFound(this.customers.WithSalesById(id));
         }
     }
 }

@@ -8,8 +8,7 @@
     using Microsoft.Extensions.DependencyInjection;
     using CarDealer.Data;
     using CarDealer.Data.Models;
-    using CarDealer.Services;
-    using CarDealer.Services.Implementations;
+    using Infrastructure.Extensions;
 
     public class Startup
     {
@@ -29,10 +28,7 @@
                 .AddEntityFrameworkStores<CarDealerDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddTransient<ICustomerService, CustomerService>();
-            services.AddTransient<ICarService, CarService>();
-            services.AddTransient<ISupplierService, SupplierService>();
-            services.AddTransient<ISaleService, SaleService>();
+            services.AddDomainServices();
 
             services.AddMvc();
         }
