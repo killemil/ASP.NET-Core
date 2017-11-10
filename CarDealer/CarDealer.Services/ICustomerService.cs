@@ -9,12 +9,14 @@
     {
         IEnumerable<CustomerModel> Ordered(OrderDirection order);
 
+        IEnumerable<CustomerSelectModel> All();
+
         CustomerWithSalesModel WithSalesById(int id);
 
         void Create(string name, DateTime birthDate, bool isYoungDriver);
 
         CustomerFormModel ById(int id);
-
+        
         bool Exist(int id);
 
         void Edit(int id, string name, DateTime birthDate, bool isYoungDriver);

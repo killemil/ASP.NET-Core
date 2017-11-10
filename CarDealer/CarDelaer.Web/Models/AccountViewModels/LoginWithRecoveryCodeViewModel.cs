@@ -1,4 +1,4 @@
-﻿namespace CarDelaer.Web.Models.AccountViewModels
+﻿namespace CarDealer.Web.Models.AccountViewModels
 {
     using System.ComponentModel.DataAnnotations;
 

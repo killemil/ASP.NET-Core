@@ -7,6 +7,7 @@
     using CarDealer.Services.Models.Cars;
     using CarDealer.Services.Models.Customers;
     using System;
+    using CarDealer.Data.Models;
 
     public class SaleService : ISaleService
     {
@@ -19,7 +20,7 @@
 
         public IEnumerable<SaleModel> All(bool hasDiscount, double? discountPercent)
         {
-            var salesQuery = this.db.Sales.AsQueryable();
+            var salesQuery = this.db.Sales.OrderByDescending(s => s.Id).AsQueryable();
 
             if (hasDiscount)
             {
@@ -32,22 +33,22 @@
             }
 
             return salesQuery.Select(s => new SaleModel
+            {
+                Id = s.Id,
+                Discount = s.Discount,
+                Car = new CarModel
                 {
-                    Id = s.Id,
-                    Discount = s.Discount,
-                    Car = new CarModel
-                    {
-                        Make = s.Car.Make,
-                        Model = s.Car.Model,
-                        TravelledDistance = s.Car.TravelledDistance
-                    },
-                    Customer = new CustomerModel
-                    {
-                        Name = s.Customer.Name,
-                        BirthDate = s.Customer.BirthDate,
-                        IsYoungDriver = s.Customer.IsYoungDriver
-                    },
-                    PriceWithoutDiscount = s.Car.Parts.Sum(p => p.Part.Price)
+                    Make = s.Car.Make,
+                    Model = s.Car.Model,
+                    TravelledDistance = s.Car.TravelledDistance
+                },
+                Customer = new CustomerModel
+                {
+                    Name = s.Customer.Name,
+                    BirthDate = s.Customer.BirthDate,
+                    IsYoungDriver = s.Customer.IsYoungDriver
+                },
+                PriceWithoutDiscount = s.Car.Parts.Sum(p => p.Part.Price)
                 })
                 .ToList();
         }
@@ -61,5 +62,18 @@
                     CustomerName = s.Customer.Name
                 })
                 .FirstOrDefault();
+
+        public void Create(int customerId, int carId, double discount)
+        {
+            var sale = new Sale
+            {
+                CarId = carId,
+                CustomerId = customerId,
+                Discount = discount
+            };
+
+            this.db.Sales.Add(sale);
+            this.db.SaveChanges();
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace CarDelaer.Web.Models.Cars
+﻿namespace CarDealer.Web.Models.Cars
 {
     using CarDealer.Services.Models.Cars;
     using System.Collections.Generic;

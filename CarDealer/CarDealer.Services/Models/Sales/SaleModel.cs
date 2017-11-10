@@ -12,7 +12,7 @@
 
         public CustomerModel Customer { get; set; }
 
-        public decimal PriceWithDiscount => this.PriceWithoutDiscount - (this.PriceWithoutDiscount * Convert.ToDecimal(this.Discount + (this.Customer.IsYoungDriver ? 0.05 : 0)));
+        public decimal PriceWithDiscount => this.PriceWithoutDiscount - (this.PriceWithoutDiscount * (decimal)(this.Discount / 100));
         
         public decimal PriceWithoutDiscount { get; set; }
 

@@ -1,4 +1,4 @@
-﻿namespace CarDelaer.Web.Controllers
+﻿namespace CarDealer.Web.Controllers
 {
     using Infrastructure.Extensions;
     using CarDealer.Services;

@@ -30,8 +30,8 @@
                 .ToList();
 
         public IEnumerable<CarWithPartsModel> CarWithParts()
-            =>  this.db.Cars
-                .OrderByDescending(c=> c.Id)
+            => this.db.Cars
+                .OrderByDescending(c => c.Id)
                 .Select(c => new CarWithPartsModel
                 {
                     Make = c.Make,
@@ -45,9 +45,9 @@
                 })
                 .ToList();
 
-        public IEnumerable<CarModel> All()
+        public IEnumerable<CarModel> AllListing()
             => this.db.Cars
-                .OrderByDescending(c=> c.Id)
+                .OrderByDescending(c => c.Id)
                 .Select(c => new CarModel
                 {
                     Make = c.Make,
@@ -56,8 +56,13 @@
                 })
                 .ToList();
 
-        public void Create(string make, string model, long travelledDistance, IEnumerable<int> partIds)
+        public void Create(string make, string model, long travelledDistance, IEnumerable<int> parts)
         {
+            var existingParts = this.db.Parts
+                .Where(p => parts.Contains(p.Id))
+                .Select(p => p.Id)
+                .ToList();
+
             var car = new Car
             {
                 Make = make,
@@ -65,19 +70,38 @@
                 TravelledDistance = travelledDistance
             };
 
-            foreach (var partId in partIds)
+            foreach (var partId in existingParts)
             {
-                var carPart = new PartCar
+                car.Parts.Add(new PartCar
                 {
-                    Car = car,
                     PartId = partId
-                };
-                car.Parts.Add(carPart);
+                });
             }
 
 
             this.db.Cars.Add(car);
             this.db.SaveChanges();
         }
+
+        public IEnumerable<CarSelectModel> All()
+            => this.db.Cars
+                .OrderBy(c => c.Make)
+                .ThenBy(c => c.Model)
+                .Select(c => new CarSelectModel
+                {
+                    Id = c.Id,
+                    Make = c.Make,
+                    Model = c.Model
+                });
+
+        public CarPriceModel ById(int id)
+            => this.db.Cars
+                  .Where(c => c.Id == id)
+                  .Select(c => new CarPriceModel
+                  {
+                      CarName = $"{c.Make} {c.Model}",
+                      Price = c.Parts.Sum(p => p.Part.Price)
+                  })
+                  .FirstOrDefault();
     }
 }

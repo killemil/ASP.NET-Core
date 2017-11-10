@@ -5,8 +5,16 @@
 
     public interface ISupplierService
     {
-        IEnumerable<SupplierListingModel> AllListing(bool isImporter);
+        IEnumerable<SupplierListingModel> AllListing();
 
         IEnumerable<SupplierModel> All();
+
+        void Create(string name, bool isImporter);
+
+        SupplierEditModel ById(int id);
+
+        void Edit(int id, string name, bool isImporter);
+
+        void Delete(int id);
     }
 }

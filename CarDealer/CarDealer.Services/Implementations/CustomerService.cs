@@ -48,6 +48,16 @@
                     .ToList();
         }
 
+        public IEnumerable<CustomerSelectModel> All()
+                => this.db.Customers
+                    .OrderBy(c=> c.Name)
+                    .Select(c => new CustomerSelectModel
+                    {
+                        Id = c.Id,
+                        Name = c.Name,
+                    })
+                    .ToList();
+
         public CustomerWithSalesModel WithSalesById(int id)
         {
             var customer = this.db

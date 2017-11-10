@@ -1,7 +1,8 @@
-﻿namespace CarDelaer.Web.Controllers
+﻿namespace CarDealer.Web.Controllers
 {
     using CarDealer.Services;
-    using CarDelaer.Web.Models.Cars;
+    using CarDealer.Web.Models.Cars;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using System.Collections.Generic;
@@ -10,6 +11,8 @@
     [Route("cars")]
     public class CarsController : Controller
     {
+        private const string RedirectToLogin = "/account/login";
+
         private readonly ICarService cars;
         private readonly IPartService parts;
 
@@ -24,7 +27,7 @@
         [Route("all")]
         public IActionResult All()
         {
-            return View(this.cars.All());
+            return View(this.cars.AllListing());
         }
 
         [Route("{make}")]
@@ -38,20 +41,21 @@
                 Cars = allCars
             });
         }
-        
+
         [Route("parts")]
         public IActionResult Parts()
         {
             return View(this.cars.CarWithParts());
         }
 
+        [Authorize]
         [Route(nameof(Create))]
         public IActionResult Create()
-            => View(new CarFormModel
-            {
-                Parts = this.GetPartsListItems()
-            });
+        {
+            return View(new CarFormModel{Parts = this.GetPartsListItems()});
+        }
 
+        [Authorize]
         [HttpPost]
         [Route(nameof(Create))]
         public IActionResult Create(CarFormModel carModel)
@@ -63,10 +67,10 @@
             }
 
             this.cars.Create(
-                carModel.Make, 
-                carModel.Model, 
+                carModel.Make,
+                carModel.Model,
                 carModel.TravelledDistance,
-                carModel.PartIds);
+                carModel.SelectedParts);
 
             return RedirectToAction(nameof(All));
         }

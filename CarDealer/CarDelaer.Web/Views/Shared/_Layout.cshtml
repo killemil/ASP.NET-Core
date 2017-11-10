@@ -43,6 +43,7 @@
                         <ul class="dropdown-menu">
                             <li><a asp-area="" asp-controller="Sales" asp-action="All">All</a></li>
                             <li><a asp-area="" asp-controller="Sales" asp-action="Discounted">Discounted</a></li>
+                            <li><a asp-controller="Sales" asp-action="Create">Create</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -53,6 +54,8 @@
                         </ul>
                     </li>
                     <li><a asp-area="" asp-controller="Parts" asp-action="All">Parts</a></li>
+                    <li><a asp-area="" asp-controller="Suppliers" asp-action="All">Suppliers</a></li>
+                    
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>

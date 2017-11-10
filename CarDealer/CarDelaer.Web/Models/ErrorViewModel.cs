@@ -1,4 +1,4 @@
-namespace CarDelaer.Web.Models
+namespace CarDealer.Web.Models
 {
     using System;
 

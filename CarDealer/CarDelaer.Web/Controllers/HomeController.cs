@@ -1,8 +1,8 @@
-﻿namespace CarDelaer.Web.Controllers
+﻿namespace CarDealer.Web.Controllers
 {
     using System.Diagnostics;
     using Microsoft.AspNetCore.Mvc;
-    using CarDelaer.Web.Models;
+    using CarDealer.Web.Models;
 
     public class HomeController : Controller
     {

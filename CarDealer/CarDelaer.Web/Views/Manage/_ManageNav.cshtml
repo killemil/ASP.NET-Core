@@ -1,4 +1,4 @@
-﻿@using CarDelaer.Web.Views.Manage
+﻿@using CarDealer.Web.Views.Manage
 @inject SignInManager<User> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();

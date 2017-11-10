@@ -1,9 +1,14 @@
-﻿namespace CarDelaer.Web.Models.AccountViewModels
+﻿namespace CarDealer.Web.Models.AccountViewModels
 {
     using System.ComponentModel.DataAnnotations;
 
     public class RegisterViewModel
     {
+        [Required]
+        [MinLength(3)]
+        [MaxLength(50)]
+        public string Username { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]

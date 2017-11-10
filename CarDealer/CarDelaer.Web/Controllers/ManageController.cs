@@ -1,11 +1,11 @@
-﻿namespace CarDelaer.Web.Controllers
+﻿namespace CarDealer.Web.Controllers
 {
     using System;
     using System.Linq;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
-    using CarDelaer.Web.Models.ManageViewModels;
+    using CarDealer.Web.Models.ManageViewModels;
     using System.Text;
     using System.Text.Encodings.Web;
     using System.Threading.Tasks;
@@ -489,7 +489,7 @@
         {
             return string.Format(
                 AuthenicatorUriFormat,
-                _urlEncoder.Encode("CarDelaer.Web"),
+                _urlEncoder.Encode("CarDealer.Web"),
                 _urlEncoder.Encode(email),
                 unformattedKey);
         }
