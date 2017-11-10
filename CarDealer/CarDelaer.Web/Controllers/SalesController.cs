@@ -68,7 +68,7 @@
             {
                 model.Customers = this.GetCustomersListItems();
                 model.Cars = this.GetCarsListItems();
-                return View(nameof(Create),model);
+                return View(nameof(Create), model);
             }
 
             var customer = this.customers.ById(model.CustomerId);

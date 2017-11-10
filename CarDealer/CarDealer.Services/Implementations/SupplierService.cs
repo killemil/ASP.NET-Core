@@ -17,7 +17,7 @@
 
         public IEnumerable<SupplierListingModel> AllListing()
             => this.db.Suppliers
-                .OrderByDescending(c=> c.Id)
+                .OrderByDescending(c => c.Id)
                 .Select(s => new SupplierListingModel
                 {
                     Id = s.Id,

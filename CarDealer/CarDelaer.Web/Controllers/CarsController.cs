@@ -52,7 +52,7 @@
         [Route(nameof(Create))]
         public IActionResult Create()
         {
-            return View(new CarFormModel{Parts = this.GetPartsListItems()});
+            return View(new CarFormModel { Parts = this.GetPartsListItems() });
         }
 
         [Authorize]

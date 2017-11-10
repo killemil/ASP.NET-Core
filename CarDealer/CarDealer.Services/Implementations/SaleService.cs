@@ -49,7 +49,7 @@
                     IsYoungDriver = s.Customer.IsYoungDriver
                 },
                 PriceWithoutDiscount = s.Car.Parts.Sum(p => p.Part.Price)
-                })
+            })
                 .ToList();
         }
 

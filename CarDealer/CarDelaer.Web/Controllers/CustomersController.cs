@@ -6,7 +6,7 @@
     using CarDealer.Services.Models.Customers;
     using Microsoft.AspNetCore.Mvc;
     using Models.Customers;
-    
+
     [Route("customers")]
     public class CustomersController : Controller
     {
@@ -33,11 +33,11 @@
             }
 
             this.customers.Create(
-                model.Name, 
-                model.BirthDate, 
+                model.Name,
+                model.BirthDate,
                 model.IsYoungDriver);
 
-            return RedirectToAction(nameof(All),new { order = OrderDirection.Ascending });
+            return RedirectToAction(nameof(All), new { order = OrderDirection.Ascending });
         }
 
         [Route(nameof(Edit) + "/{id}")]

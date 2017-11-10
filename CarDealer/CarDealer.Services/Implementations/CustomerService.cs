@@ -50,7 +50,7 @@
 
         public IEnumerable<CustomerSelectModel> All()
                 => this.db.Customers
-                    .OrderBy(c=> c.Name)
+                    .OrderBy(c => c.Name)
                     .Select(c => new CustomerSelectModel
                     {
                         Id = c.Id,
@@ -59,8 +59,7 @@
                     .ToList();
 
         public CustomerWithSalesModel WithSalesById(int id)
-        {
-            var customer = this.db
+            => this.db
                 .Customers
                 .Where(c => c.Id == id)
                 .Select(c => new CustomerWithSalesModel
@@ -71,9 +70,6 @@
                     TotalSpentMoney = c.Sales.Sum(s => s.Car.Parts.Sum(p => p.Part.Price))
                 })
                 .FirstOrDefault();
-
-            return customer;
-        }
 
         public void Create(string name, DateTime birthDate, bool isYoungDriver)
         {
