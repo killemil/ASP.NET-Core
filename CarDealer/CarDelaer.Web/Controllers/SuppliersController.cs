@@ -1,5 +1,6 @@
 ﻿namespace CarDealer.Web.Controllers
 {
+    using CarDealer.Data.Models.Enums;
     using CarDealer.Services;
     using CarDealer.Web.Models.Suppliers;
     using Microsoft.AspNetCore.Authorization;
@@ -7,11 +8,17 @@
 
     public class SuppliersController : Controller
     {
-        private readonly ISupplierService suppliers;
+        private const string SupplierTableName = "Supplier";
 
-        public SuppliersController(ISupplierService suppliers)
+        private readonly ISupplierService suppliers;
+        private readonly ILogService logs;
+
+        public SuppliersController(
+            ISupplierService suppliers,
+            ILogService logs)
         {
             this.suppliers = suppliers;
+            this.logs = logs;
         }
 
         public IActionResult All()
@@ -37,6 +44,7 @@
             }
 
             this.suppliers.Create(model.Name, model.IsImporter);
+            this.logs.Create(User.Identity.Name, SupplierTableName, Operation.Add);
 
             return RedirectToAction(nameof(All));
         }
@@ -68,6 +76,7 @@
             }
 
             this.suppliers.Edit((int)model.Id, model.Name, model.IsImporter);
+            this.logs.Create(User.Identity.Name, SupplierTableName, Operation.Edit);
 
             return RedirectToAction(nameof(All));
         }
@@ -94,6 +103,7 @@
         public IActionResult ConfirmDelete(int id)
         {
             this.suppliers.Delete(id);
+            this.logs.Create(User.Identity.Name, SupplierTableName, Operation.Delete);
 
             return RedirectToAction(nameof(All));
         }

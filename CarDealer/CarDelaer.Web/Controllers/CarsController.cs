@@ -1,5 +1,6 @@
 ﻿namespace CarDealer.Web.Controllers
 {
+    using CarDealer.Data.Models.Enums;
     using CarDealer.Services;
     using CarDealer.Web.Models.Cars;
     using Microsoft.AspNetCore.Authorization;
@@ -15,13 +16,16 @@
 
         private readonly ICarService cars;
         private readonly IPartService parts;
+        private readonly ILogService logs;
 
         public CarsController(
             ICarService cars,
-            IPartService parts)
+            IPartService parts,
+            ILogService logs)
         {
             this.cars = cars;
             this.parts = parts;
+            this.logs = logs;
         }
 
         [Route("all")]
@@ -71,6 +75,8 @@
                 carModel.Model,
                 carModel.TravelledDistance,
                 carModel.SelectedParts);
+
+            this.logs.Create(User.Identity.Name, "Car", Operation.Add);
 
             return RedirectToAction(nameof(All));
         }

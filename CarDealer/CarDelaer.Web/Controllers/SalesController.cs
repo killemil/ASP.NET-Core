@@ -1,5 +1,6 @@
 ﻿namespace CarDealer.Web.Controllers
 {
+    using CarDealer.Data.Models.Enums;
     using CarDealer.Services;
     using CarDealer.Web.Models.Sales;
     using Microsoft.AspNetCore.Authorization;
@@ -14,15 +15,18 @@
         private readonly ISaleService sales;
         private readonly ICarService cars;
         private readonly ICustomerService customers;
+        private readonly ILogService logs;
 
         public SalesController(
             ISaleService sales,
             ICarService cars,
-            ICustomerService customers)
+            ICustomerService customers,
+            ILogService logs)
         {
             this.sales = sales;
             this.cars = cars;
             this.customers = customers;
+            this.logs = logs;
         }
 
         public IActionResult All()
@@ -98,6 +102,7 @@
             }
 
             this.sales.Create(model.CustomerId, model.CarId, model.Discount);
+            this.logs.Create(User.Identity.Name, "Sale", Operation.Add);
 
             return RedirectToAction(nameof(All));
         }
