@@ -1,0 +1,32 @@
+﻿@model CreateSaleFormModel
+@{
+    ViewData["Title"] = "Create Sale";
+}
+<h2>@ViewData["Title"]</h2>
+
+<div class="row">
+    <div class="col-md-4">
+     <form action="/sales/ConfirmCreate">
+            <hr />
+            <div class="form-group">
+                <label asp-for="CustomerId"></label>
+                <select asp-for="CustomerId" asp-items="Model.Customers" class="form-control"></select>
+                <span asp-validation-for="CustomerId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CarId"></label>
+                <select asp-for="CarId" asp-items="Model.Cars" class="form-control"></select>
+                <span asp-validation-for="CarId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Discount"></label>
+                <input asp-for="Discount" class="form-control" />
+                <span asp-validation-for="Discount" class="text-danger"></span>
+            </div>
+            <a class="btn btn-primary" href="/sales">Back</a>
+            <input type="submit" class="btn btn-success" value="Add Sale"/>
+            </form>
+        </div>
+    </div>
+
