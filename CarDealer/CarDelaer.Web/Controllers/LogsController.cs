@@ -19,11 +19,14 @@
 
         public IActionResult All(string searchTerm, int page = 1)
         {
+            var logs = this.logs.AllListing(searchTerm, page, PageSize);
+
             return View(new LogPageListingModel
             {
-                Logs = this.logs.AllListing(searchTerm, page, PageSize),
+                Logs = logs,
                 CurrentPage = page,
-                TotalPages = (int)Math.Ceiling(this.logs.Total(searchTerm) / (double)PageSize)
+                TotalPages = (int)Math.Ceiling(this.logs.Total(searchTerm) / (double)PageSize),
+                SearchTerm = searchTerm
             });
         }
 

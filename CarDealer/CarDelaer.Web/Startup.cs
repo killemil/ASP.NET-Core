@@ -9,6 +9,7 @@
     using CarDealer.Data;
     using CarDealer.Data.Models;
     using Infrastructure.Extensions;
+    using Microsoft.AspNetCore.Mvc;
 
     public class Startup
     {
@@ -25,7 +26,7 @@
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services
-                .AddIdentity<User, IdentityRole>(options=>
+                .AddIdentity<User, IdentityRole>(options =>
                 {
                     options.Password.RequireDigit = false;
                     options.Password.RequireLowercase = false;
@@ -37,7 +38,10 @@
 
             services.AddDomainServices();
 
-            services.AddMvc();
+            services.AddMvc(options =>
+            {
+                options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

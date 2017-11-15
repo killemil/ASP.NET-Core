@@ -23,7 +23,7 @@
 
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
-                logs = logs.Where(l => l.Username.ToLower() == searchTerm.ToLower());
+                logs = logs.Where(l => l.Username.ToLower().Contains(searchTerm.ToLower()));
             }
 
             return logs
@@ -67,7 +67,7 @@
 
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
-                logs = logs.Where(l => l.Username.ToLower() == searchTerm.ToLower());
+                logs = logs.Where(l => l.Username.ToLower().Contains(searchTerm.ToLower()));
             }
 
             return logs.Count();
