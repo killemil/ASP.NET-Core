@@ -53,5 +53,10 @@
 
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
+
+        public IActionResult All()
+        {
+            return View(this.cameras.AllListing());
+        }
     }
 }

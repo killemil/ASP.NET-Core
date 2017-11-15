@@ -1,10 +1,13 @@
 ﻿namespace CameraBazaar.Services
 {
     using CameraBazaar.Data.Models.Enums;
+    using CameraBazaar.Services.Models.Cameras;
     using System.Collections.Generic;
 
     public interface ICameraService
     {
+        IEnumerable<CameraListingModel> AllListing();
+
         void Create(
             CameraMake make,
             string model,

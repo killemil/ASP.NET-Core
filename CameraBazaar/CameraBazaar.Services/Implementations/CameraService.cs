@@ -5,6 +5,7 @@
     using CameraBazaar.Web.Data;
     using CameraBazaar.Data.Models;
     using System.Linq;
+    using CameraBazaar.Services.Models.Cameras;
 
     public class CameraService : ICameraService
     {
@@ -14,6 +15,19 @@
         {
             this.db = db;
         }
+
+        public IEnumerable<CameraListingModel> AllListing()
+            => this.db.Cameras
+                .Select(c => new CameraListingModel
+                {
+                    Id = c.Id,
+                    Make = c.Make,
+                    Model = c.Model,
+                    Price = c.Price,
+                    Quantity = c.Quantity,
+                    ImageUrl = c.ImageUrl
+                })
+                .ToList();
 
         public void Create(
             CameraMake make, 
