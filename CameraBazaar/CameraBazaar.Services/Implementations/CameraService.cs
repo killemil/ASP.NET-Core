@@ -30,19 +30,19 @@
                 .ToList();
 
         public void Create(
-            CameraMake make, 
-            string model, 
-            decimal price, 
-            int quantity, 
-            int minShutterSpeed, 
+            CameraMake make,
+            string model,
+            decimal price,
+            int quantity,
+            int minShutterSpeed,
             int maxShutterSpeed,
-            MinISO minISO, 
-            int maxISO, 
+            MinISO minISO,
+            int maxISO,
             bool isFullFrame,
-            string videoResolution, 
-            IEnumerable<LightMetering> lightMeterings, 
-            string description, 
-            string imageUrl, 
+            string videoResolution,
+            IEnumerable<LightMetering> lightMeterings,
+            string description,
+            string imageUrl,
             string userId)
         {
             var camera = new Camera
@@ -66,5 +66,27 @@
             this.db.Cameras.Add(camera);
             this.db.SaveChanges();
         }
+
+        public CameraDetailsModel ById(int id)
+            => this.db.Cameras
+                .Where(c => c.Id == id)
+                .Select(c => new CameraDetailsModel
+                {
+                    Make = c.Make,
+                    Model = c.Model,
+                    Price = c.Price,
+                    Quantity = c.Quantity,
+                    MinShutterSpeed = c.MinShutterSpeed,
+                    MaxShutterSpeed = c.MaxShutterSpeed,
+                    MinISO = c.MinISO,
+                    MaxISO = c.MaxISO,
+                    VideoResolution = c.VideoResolution,
+                    IsFullFrame = c.IsFullFrame,
+                    ImageUrl = c.ImageUrl,
+                    Description = c.Description,
+                    LightMetering = c.LightMetering,
+                    User = c.User
+                })
+                .FirstOrDefault();
     }
 }

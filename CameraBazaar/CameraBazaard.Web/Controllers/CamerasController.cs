@@ -58,5 +58,17 @@
         {
             return View(this.cameras.AllListing());
         }
+
+        public IActionResult Details(int id)
+        {
+            var currentCamera = this.cameras.ById(id);
+
+            if (currentCamera == null)
+            {
+                return NotFound();
+            }
+            
+            return View(currentCamera);
+        }
     }
 }

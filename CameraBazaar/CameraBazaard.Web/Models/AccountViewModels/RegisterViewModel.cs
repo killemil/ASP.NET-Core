@@ -7,7 +7,7 @@
         [Required]
         [MinLength(4)]
         [MaxLength(20)]
-        [RegularExpression(@"^[a-zA-Z]+")]
+        [RegularExpression(@"^[a-zA-Z]+",ErrorMessage = "Username must be only of alphabetical characters.")]
         public string Username { get; set; }
 
         [Required]
@@ -16,7 +16,7 @@
         public string Email { get; set; }
 
         [Required]
-        [RegularExpression(@"^\+\d{10,12}")]
+        [RegularExpression(@"^\+\d{10,12}",ErrorMessage ="Phone must start with + and have 10 to 12 digits.")]
         public string Phone { get; set; }
 
         [Required]

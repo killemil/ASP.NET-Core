@@ -23,5 +23,7 @@
             string description,
             string imageUrl,
             string userId);
+
+        CameraDetailsModel ById(int id);
     }
 }
