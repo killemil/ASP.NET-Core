@@ -1,6 +1,7 @@
 ﻿namespace CameraBazaar.Web.Controllers
 {
     using CameraBazaar.Data.Models;
+    using CameraBazaar.Services;
     using CameraBazaar.Web.Models.ManageViewModels;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authorization;
@@ -21,6 +22,7 @@
         private readonly SignInManager<User> _signInManager;
         private readonly ILogger _logger;
         private readonly UrlEncoder _urlEncoder;
+        private readonly IUserService users;
 
         private const string AuthenicatorUriFormat = "otpauth://totp/{0}:{1}?secret={2}&issuer={0}&digits=6";
 
@@ -28,12 +30,14 @@
           UserManager<User> userManager,
           SignInManager<User> signInManager,
           ILogger<ManageController> logger,
-          UrlEncoder urlEncoder)
+          UrlEncoder urlEncoder,
+          IUserService users)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _urlEncoder = urlEncoder;
+            this.users = users;
         }
 
         [TempData]
@@ -48,13 +52,16 @@
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
+            var cameras = this.users.ById(user.Id);
+
             var model = new IndexViewModel
             {
                 Username = user.UserName,
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 IsEmailConfirmed = user.EmailConfirmed,
-                StatusMessage = StatusMessage
+                StatusMessage = StatusMessage,
+                Cameras = cameras.Cameras
             };
 
             return View(model);

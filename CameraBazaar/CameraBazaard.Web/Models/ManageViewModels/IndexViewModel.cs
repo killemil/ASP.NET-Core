@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CameraBazaar.Web.Models.ManageViewModels
+﻿namespace CameraBazaar.Web.Models.ManageViewModels
 {
-    public class IndexViewModel
+    using CameraBazaar.Services.Models.Cameras;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+
+    public class IndexViewModel 
     {
         public string Username { get; set; }
 
@@ -21,5 +19,7 @@ namespace CameraBazaar.Web.Models.ManageViewModels
         public string PhoneNumber { get; set; }
 
         public string StatusMessage { get; set; }
+
+        public IEnumerable<CameraListingModel> Cameras { get; set; }
     }
 }
