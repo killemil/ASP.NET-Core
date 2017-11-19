@@ -1,13 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace CameraBazaar.Web.Models.AccountViewModels
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class ExternalLoginViewModel
     {
+        [Required]
+        public string Username { get; set; }
+
         [Required]
         [EmailAddress]
         public string Email { get; set; }

@@ -1,6 +1,7 @@
 ﻿namespace CameraBazaar.Web.Controllers
 {
     using CameraBazaar.Data.Models;
+    using CameraBazaar.Web.Infrastructure;
     using CameraBazaar.Web.Models.AccountViewModels;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authorization;
@@ -216,6 +217,7 @@
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    await this._userManager.AddToRoleAsync(user, GlobalConstants.UserRole);
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -302,7 +304,7 @@
                 {
                     throw new ApplicationException("Error loading external login information during confirmation.");
                 }
-                var user = new User { UserName = model.Email, Email = model.Email };
+                var user = new User { UserName = model.Username, Email = model.Email };
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

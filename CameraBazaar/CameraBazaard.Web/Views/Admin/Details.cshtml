@@ -1,0 +1,28 @@
+﻿@model AdminUserDetailsModel
+@{
+    ViewData["Title"] = $"Details for user {Model.Username}";
+}
+<h2>@ViewData["Title"]</h2>
+<div>
+    <h3>
+        Username : @Model.Username
+    </h3>
+    <h3>
+        Email : @Model.Email
+    </h3>
+    <h3>
+        Roles:
+    </h3>
+    <p>
+        <ul>
+            @foreach (var role in Model.Roles)
+            {
+                <li>@role</li>
+            }
+        </ul>
+    </p>
+</div>
+<div>
+    <a href="/admin/changerole/@Model.Id">Change Role</a>
+</div>
+

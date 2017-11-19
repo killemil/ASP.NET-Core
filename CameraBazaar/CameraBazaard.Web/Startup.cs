@@ -16,6 +16,7 @@
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+           
         }
 
         public IConfiguration Configuration { get; }
@@ -36,6 +37,12 @@
                 .AddEntityFrameworkStores<CameraBazaarDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddAuthentication().AddFacebook(options =>
+            {
+                options.AppId = Configuration["Authentication:Facebook:AppId"];
+                options.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+            }); 
+
             services.AddDomainServices();
 
             services.AddMvc(options =>
@@ -48,6 +55,7 @@
         {
             app.UseDatabaseMigration();
 
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -58,7 +66,6 @@
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
             app.UseStaticFiles();
 
             app.UseAuthentication();

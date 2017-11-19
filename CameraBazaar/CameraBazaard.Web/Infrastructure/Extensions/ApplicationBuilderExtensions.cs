@@ -1,9 +1,12 @@
 ﻿namespace CameraBazaar.Web.Infrastructure.Extensions
 {
+    using CameraBazaar.Data.Models;
     using Data;
     using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
+    using System.Threading.Tasks;
 
     public static class ApplicationBuilderExtensions
     {
@@ -18,6 +21,52 @@
                     .GetService<CameraBazaarDbContext>()
                     .Database
                     .Migrate();
+
+
+                var userManager = serviceScope.ServiceProvider.GetService<UserManager<User>>();
+                var roleManager = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
+
+                Task
+                    .Run(async () =>
+                    {
+                        var adminName = GlobalConstants.AdminRole;
+                        var userRole = GlobalConstants.UserRole;
+
+                        var isAdminRoleExist = await roleManager.RoleExistsAsync(adminName);
+                        var isUserRoleExist = await roleManager.RoleExistsAsync(userRole);
+
+                        if (!isUserRoleExist)
+                        {
+                            await roleManager.CreateAsync(new IdentityRole
+                            {
+                                Name = userRole
+                            });
+                        }
+
+                        if (!isAdminRoleExist)
+                        {
+                            await roleManager.CreateAsync(new IdentityRole
+                            {
+                                Name = adminName
+                            });
+                        }
+
+                        var adminUser = await userManager.FindByNameAsync(adminName);
+
+                        if (adminUser == null)
+                        {
+                            adminUser = new User
+                            {
+                                UserName = adminName,
+                                Email = "admin@admin.admin"
+                            };
+
+                            await userManager.CreateAsync(adminUser, "admin123");
+
+                            await userManager.AddToRoleAsync(adminUser, adminName);
+                        }
+                    })
+                .Wait();
             }
 
             return app;
