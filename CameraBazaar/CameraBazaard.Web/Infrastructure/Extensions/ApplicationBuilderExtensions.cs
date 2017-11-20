@@ -31,9 +31,19 @@
                     {
                         var adminName = GlobalConstants.AdminRole;
                         var userRole = GlobalConstants.UserRole;
+                        var restrictedUserRole = GlobalConstants.UserRestrict;
 
                         var isAdminRoleExist = await roleManager.RoleExistsAsync(adminName);
                         var isUserRoleExist = await roleManager.RoleExistsAsync(userRole);
+                        var isUserRestrictRoleExist = await roleManager.RoleExistsAsync(restrictedUserRole);
+
+                        if (!isUserRestrictRoleExist)
+                        {
+                            await roleManager.CreateAsync(new IdentityRole
+                            {
+                                Name = restrictedUserRole
+                            });
+                        }
 
                         if (!isUserRoleExist)
                         {

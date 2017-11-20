@@ -20,7 +20,7 @@
             this.cameras = cameras;
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin,User")]
         public IActionResult Create()
         {
             return View();
@@ -28,6 +28,7 @@
 
         [HttpPost]
         [Authorize]
+        [Authorize(Roles = "Admin,User")]
         public IActionResult Create(CameraFormModel cameraModel)
         {
             if (!ModelState.IsValid)
@@ -36,9 +37,9 @@
             }
 
             this.cameras.Create(
-                cameraModel.Make, 
-                cameraModel.Model, 
-                cameraModel.Price, 
+                cameraModel.Make,
+                cameraModel.Model,
+                cameraModel.Price,
                 cameraModel.Quantity,
                 cameraModel.MinShutterSpeed,
                 cameraModel.MaxShutterSpeed,
@@ -67,7 +68,7 @@
             {
                 return NotFound();
             }
-            
+
             return View(currentCamera);
         }
     }

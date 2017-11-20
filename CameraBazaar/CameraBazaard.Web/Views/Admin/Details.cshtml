@@ -14,15 +14,21 @@
         Roles:
     </h3>
     <p>
-        <ul>
+        <ol class="list-group list-inline">
             @foreach (var role in Model.Roles)
             {
-                <li>@role</li>
+                <li class="list-group-item list-group-item-info"><h4><strong>@role</strong></h4></li>
             }
-        </ul>
+        </ol>
     </p>
 </div>
 <div>
-    <a href="/admin/changerole/@Model.Id">Change Role</a>
+    <a href="/admin/users" class="btn btn-default">Back</a>
+    <a href="/admin/changerole/@Model.Id" class="btn btn-primary">Change Role</a>
+    <a href="/admin/addrole/@Model.Id" class="btn btn-info">Add Role</a>
+    @if (Model.Username != "Admin")
+    {
+        <a href="/admin/removerole/@Model.Id" class="btn btn-warning">Remove Roles</a>
+    }
 </div>
 
