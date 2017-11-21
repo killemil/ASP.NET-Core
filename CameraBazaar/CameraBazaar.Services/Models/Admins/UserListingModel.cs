@@ -1,6 +1,9 @@
 ﻿namespace CameraBazaar.Services.Models.Admins
 {
-    public class UserListingModel
+    using CameraBazaar.Data.Models;
+    using CameraBazaar.Services.Infrastructure.Mapping;
+
+    public class UserListingModel : IMapFrom<User>
     {
         public string Id { get; set; }
 

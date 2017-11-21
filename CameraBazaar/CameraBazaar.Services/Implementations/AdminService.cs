@@ -1,5 +1,6 @@
 ﻿namespace CameraBazaar.Services.Implementations
 {
+    using AutoMapper.QueryableExtensions;
     using CameraBazaar.Web.Data;
     using Models.Admins;
     using System.Collections.Generic;
@@ -16,23 +17,13 @@
 
         public IEnumerable<UserListingModel> AllUsers()
             => this.db.Users
-                .Select(u => new UserListingModel
-                {
-                    Id = u.Id,
-                    Email = u.Email,
-                    Username = u.UserName
-                })
+                .ProjectTo<UserListingModel>()
                 .ToList();
 
         public AdminUserDetailsModel UserById(string id)
             => this.db.Users
                 .Where(u => u.Id == id)
-                .Select(u => new AdminUserDetailsModel
-                {
-                    Id = u.Id,
-                    Email = u.Email,
-                    Username = u.UserName
-                })
+                .ProjectTo<AdminUserDetailsModel>()
                 .FirstOrDefault();
     }
 }

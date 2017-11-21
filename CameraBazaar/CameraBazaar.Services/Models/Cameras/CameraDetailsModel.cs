@@ -2,8 +2,9 @@
 {
     using CameraBazaar.Data.Models;
     using CameraBazaar.Data.Models.Enums;
+    using CameraBazaar.Services.Infrastructure.Mapping;
 
-    public class CameraDetailsModel
+    public class CameraDetailsModel : IMapFrom<Camera>
     {
         public CameraMake Make { get; set; }
 

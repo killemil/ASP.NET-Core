@@ -25,5 +25,9 @@
             string userId);
 
         CameraDetailsModel ById(int id);
+
+        bool Exists(int id, string userId);
+
+        void Delete(int id, string userId);
     }
 }

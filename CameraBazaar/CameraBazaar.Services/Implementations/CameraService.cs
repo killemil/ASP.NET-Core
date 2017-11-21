@@ -1,11 +1,12 @@
 ﻿namespace CameraBazaar.Services.Implementations
 {
-    using System.Collections.Generic;
-    using CameraBazaar.Data.Models.Enums;
-    using CameraBazaar.Web.Data;
+    using AutoMapper.QueryableExtensions;
     using CameraBazaar.Data.Models;
-    using System.Linq;
+    using CameraBazaar.Data.Models.Enums;
     using CameraBazaar.Services.Models.Cameras;
+    using CameraBazaar.Web.Data;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class CameraService : ICameraService
     {
@@ -18,15 +19,7 @@
 
         public IEnumerable<CameraListingModel> AllListing()
             => this.db.Cameras
-                .Select(c => new CameraListingModel
-                {
-                    Id = c.Id,
-                    Make = c.Make,
-                    Model = c.Model,
-                    Price = c.Price,
-                    Quantity = c.Quantity,
-                    ImageUrl = c.ImageUrl
-                })
+                .ProjectTo<CameraListingModel>()
                 .ToList();
 
         public void Create(
@@ -70,23 +63,25 @@
         public CameraDetailsModel ById(int id)
             => this.db.Cameras
                 .Where(c => c.Id == id)
-                .Select(c => new CameraDetailsModel
-                {
-                    Make = c.Make,
-                    Model = c.Model,
-                    Price = c.Price,
-                    Quantity = c.Quantity,
-                    MinShutterSpeed = c.MinShutterSpeed,
-                    MaxShutterSpeed = c.MaxShutterSpeed,
-                    MinISO = c.MinISO,
-                    MaxISO = c.MaxISO,
-                    VideoResolution = c.VideoResolution,
-                    IsFullFrame = c.IsFullFrame,
-                    ImageUrl = c.ImageUrl,
-                    Description = c.Description,
-                    LightMetering = c.LightMetering,
-                    User = c.User
-                })
+                .ProjectTo<CameraDetailsModel>()
                 .FirstOrDefault();
+
+        public bool Exists(int id, string userId)
+            => this.db.Cameras.Any(c => c.Id == id && c.UserId == userId);
+
+        public void Delete(int id, string userId)
+        {
+            var camera = this.db.Cameras
+                .Where(c => c.Id == id && c.UserId == userId)
+                .FirstOrDefault();
+
+            if (camera == null)
+            {
+                return;
+            }
+
+            this.db.Cameras.Remove(camera);
+            this.db.SaveChanges();
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace CameraBazaar.Web
 {
+    using AutoMapper;
     using CameraBazaar.Data.Models;
     using CameraBazaar.Web.Data;
     using Infrastructure.Extensions;
@@ -44,6 +45,8 @@
             }); 
 
             services.AddDomainServices();
+
+            services.AddAutoMapper();
 
             services.AddMvc(options =>
             {

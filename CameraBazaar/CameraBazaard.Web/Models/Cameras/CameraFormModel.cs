@@ -1,10 +1,12 @@
 ﻿namespace CameraBazaar.Web.Models.Cameras
 {
     using CameraBazaar.Data.Models.Enums;
+    using CameraBazaar.Services.Infrastructure.Mapping;
+    using CameraBazaar.Services.Models.Cameras;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public class CameraFormModel
+    public class CameraFormModel : IMapFrom<CameraDetailsModel>
     {
         [Display(Name = "Make:")]
         public CameraMake Make { get; set; }

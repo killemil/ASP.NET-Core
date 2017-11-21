@@ -1,5 +1,6 @@
 ﻿namespace CameraBazaar.Web.Controllers
 {
+    using AutoMapper;
     using CameraBazaar.Data.Models;
     using CameraBazaar.Services;
     using CameraBazaar.Web.Models.Cameras;
@@ -11,13 +12,16 @@
     {
         private readonly UserManager<User> userManger;
         private readonly ICameraService cameras;
+        private readonly IMapper mapper;
 
         public CamerasController(
             UserManager<User> userManger,
-            ICameraService cameras)
+            ICameraService cameras,
+            IMapper mapper)
         {
             this.userManger = userManger;
             this.cameras = cameras;
+            this.mapper = mapper;
         }
 
         [Authorize(Roles = "Admin,User")]
@@ -70,6 +74,55 @@
             }
 
             return View(currentCamera);
+        }
+
+        //DONT LIST Lightening Meters
+        [Authorize]
+        public IActionResult Edit(int id)
+        {
+            var isEditable = this.cameras.Exists(id, this.userManger.GetUserId(User));
+
+            if (!isEditable)
+            {
+                return NotFound();
+            }
+
+            var camera = this.cameras.ById(id);
+
+            var cameraFormModel = this.mapper.Map<CameraFormModel>(camera);
+
+            return View(cameraFormModel);
+        }
+
+        //TODO
+        [HttpPost]
+        [Authorize]
+        public IActionResult Edit(int id, CameraFormModel cameraModel)
+        {
+            return RedirectToAction(nameof(Details), new { id = id });
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var isDeletable = this.cameras.Exists(id, this.userManger.GetUserId(User));
+
+            if (!isDeletable)
+            {
+                return NotFound();
+            }
+
+            var camera = this.cameras.ById(id);
+            var cameraFormModel = this.mapper.Map<CameraFormModel>(camera);
+
+            return View(cameraFormModel);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id, string empty)
+        {
+            this.cameras.Delete(id, this.userManger.GetUserId(User));
+
+            return RedirectToAction(nameof(All));
         }
     }
 }

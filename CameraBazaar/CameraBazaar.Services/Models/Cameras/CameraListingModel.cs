@@ -1,8 +1,10 @@
 ﻿namespace CameraBazaar.Services.Models.Cameras
 {
+    using CameraBazaar.Data.Models;
     using CameraBazaar.Data.Models.Enums;
+    using CameraBazaar.Services.Infrastructure.Mapping;
 
-    public class CameraListingModel
+    public class CameraListingModel : IMapFrom<Camera>
     {
         public int Id { get; set; }
 
