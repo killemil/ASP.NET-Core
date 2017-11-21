@@ -70,7 +70,8 @@
 
         public void SignUp(int courseId, string username)
         {
-            var user = this.db.Users.FirstOrDefault(u => u.UserName == username);
+            var user = this.db.Users
+                .FirstOrDefault(u => u.UserName == username);
             var course = this.db.Courses.Find(courseId);
 
             if (user == null || course == null)
@@ -88,20 +89,23 @@
 
         public void SignOut(int courseId, string username)
         {
-            var user = this.db.Users.Include(u => u.Courses).FirstOrDefault(u => u.UserName == username);
-            var course = this.db.Courses.Include(c => c.Students).FirstOrDefault(c => c.Id == courseId);
+            var user = this.db
+                .Users
+                .FirstOrDefault(u => u.UserName == username);
+            var course = this.db.Courses
+                .Include(c => c.Students)
+                .FirstOrDefault(c => c.Id == courseId);
 
             if (user == null || course == null)
             {
                 return;
             }
 
-            course.Students.Remove(new UserCourse
-            {
-                User = user,
-                Course = course
-            });
-
+            var userToRemove = course
+                .Students
+                .Where(c => c.UserId == user.Id)
+                .First();
+            course.Students.Remove(userToRemove);
             this.db.SaveChanges();
         }
     }
