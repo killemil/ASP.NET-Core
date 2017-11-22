@@ -13,11 +13,12 @@
         <h4>Trainer Name: <a href="/users/profile/@Model.TrainerId" class="btn-link">@Model.TrainerName</a> </h4>
 
         <h3>Number of students enrolled: @Model.NumberOfStudents</h3>
+        <a href="/" class="btn btn-primary">Back</a>
         @{
             if (Model.StartDate >= DateTime.UtcNow)
             {
 
-                if (!Model.StudentUsenames.Contains(User.Identity.Name))
+                if (!Model.StudentsInCourse.Contains(User.Identity.Name))
                 {
                     <a href="/courses/signup/?id=@Model.Id&username=@User.Identity.Name" class="btn btn-warning">Sign Up</a>
                 }
@@ -26,6 +27,10 @@
                     <a href="/courses/signout/?id=@Model.Id&username=@User.Identity.Name" class="btn btn-danger">Sign Out</a>
                 }
 
+            }
+            else
+            {
+                <h3 class="text-warning "><strong>This Course is Inactive.</strong></h3>
             }
         }
     </div>

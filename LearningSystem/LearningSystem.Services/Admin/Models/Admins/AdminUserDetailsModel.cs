@@ -1,4 +1,4 @@
-﻿namespace LearningSystem.Services.Models.Admins
+﻿namespace LearningSystem.Services.Admin.Models.Admins
 {
     using System;
     using System.Collections.Generic;

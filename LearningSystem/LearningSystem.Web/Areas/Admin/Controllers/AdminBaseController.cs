@@ -1,6 +1,11 @@
 ﻿namespace LearningSystem.Web.Areas.Admin.Controllers
 {
-    public class AdminBaseController
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+
+    [Area("Admin")]
+    [Authorize(Roles = WebConstants.AdminRole)]
+    public abstract class AdminBaseController : Controller
     {
     }
 }

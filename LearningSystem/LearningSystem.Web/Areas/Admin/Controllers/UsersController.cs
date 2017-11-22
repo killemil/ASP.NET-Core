@@ -1,22 +1,22 @@
-﻿namespace LearningSystem.Web.Controllers
+﻿namespace LearningSystem.Web.Areas.Admin.Controllers
 {
-    using LearningSystem.Data.Models;
-    using LearningSystem.Services;
-    using LearningSystem.Web.Models.AdminViewModels;
+    using Data.Models;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
+    using Models.Users;
+    using Services.Admin;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
-    public class AdminsController : Controller
+    public class UsersController : AdminBaseController
     {
         private readonly IAdminService admins;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly UserManager<User> userManager;
 
-        public AdminsController(
+        public UsersController(
             IAdminService admins,
             RoleManager<IdentityRole> roleManager,
             UserManager<User> userManager)
@@ -26,7 +26,7 @@
             this.userManager = userManager;
         }
 
-        public IActionResult Users()
+        public IActionResult All()
            => View(admins.UserListing());
 
         public async Task<IActionResult> Details(string id)

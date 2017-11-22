@@ -1,6 +1,6 @@
-﻿namespace LearningSystem.Services
+﻿namespace LearningSystem.Services.Admin
 {
-    using LearningSystem.Services.Models.Admins;
+    using LearningSystem.Services.Admin.Models.Admins;
     using System.Collections.Generic;
 
     public interface IAdminService

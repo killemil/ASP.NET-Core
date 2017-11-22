@@ -1,4 +1,4 @@
-﻿namespace LearningSystem.Web.Models.AdminViewModels
+﻿namespace LearningSystem.Web.Areas.Admin.Models.Users
 {
     using Microsoft.AspNetCore.Mvc.Rendering;
     using System.Collections.Generic;

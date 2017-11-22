@@ -1,8 +1,10 @@
 ﻿namespace LearningSystem.Services.Models.Courses
 {
+    using LearningSystem.Common.Mapping;
+    using LearningSystem.Data.Models;
     using System;
 
-    public class CourseListingModel
+    public class CourseListingModel : IMapFrom<Course>
     {
         public int Id { get; set; }
 
