@@ -70,7 +70,7 @@
 
         private async Task<IEnumerable<SelectListItem>> GetTreinersItems()
         {
-            var trainers = await this.userManager.GetUsersInRoleAsync(GlobalConstants.Trainer);
+            var trainers = await this.userManager.GetUsersInRoleAsync(WebConstants.Trainer);
             return trainers
                     .Select(t => new SelectListItem
                     {

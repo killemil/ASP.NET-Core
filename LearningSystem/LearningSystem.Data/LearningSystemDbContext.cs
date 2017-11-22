@@ -6,14 +6,15 @@
 
     public class LearningSystemDbContext : IdentityDbContext<User>
     {
-        public DbSet<Course> Courses { get; set; }
-
-        public DbSet<Article> Articles { get; set; }
-
         public LearningSystemDbContext(DbContextOptions<LearningSystemDbContext> options)
             : base(options)
         {
         }
+
+        public DbSet<Course> Courses { get; set; }
+
+        public DbSet<Article> Articles { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -35,6 +36,11 @@
                 .HasMany(u => u.Articles)
                 .WithOne(a => a.Author)
                 .HasForeignKey(a => a.AuthorId);
+
+            builder.Entity<User>()
+                .HasMany(u => u.Trainings)
+                .WithOne(c => c.Trainer)
+                .HasForeignKey(c => c.TrainerId);
 
 
             base.OnModelCreating(builder);

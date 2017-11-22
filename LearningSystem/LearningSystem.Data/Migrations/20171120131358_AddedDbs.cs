@@ -1,9 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
-using System.Collections.Generic;
-
-namespace LearningSystem.Data.Migrations
+﻿namespace LearningSystem.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddedDbs : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

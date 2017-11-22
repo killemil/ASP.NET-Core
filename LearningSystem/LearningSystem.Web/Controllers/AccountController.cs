@@ -217,7 +217,7 @@
                 var result = await userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await this.userManager.AddToRoleAsync(user, GlobalConstants.Student);
+                    await this.userManager.AddToRoleAsync(user, WebConstants.Student);
                     logger.LogInformation("User created a new account with password.");
 
                     var code = await userManager.GenerateEmailConfirmationTokenAsync(user);

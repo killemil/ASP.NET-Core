@@ -1,5 +1,6 @@
 ﻿namespace LearningSystem.Web
 {
+    using AutoMapper;
     using LearningSystem.Data;
     using LearningSystem.Data.Models;
     using LearningSystem.Web.Infrastructure.Extensions;
@@ -19,8 +20,7 @@
         }
 
         public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
+        
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<LearningSystemDbContext>(options =>
@@ -38,12 +38,14 @@
 
             services.AddDomainServices();
 
+            services.AddAutoMapper();
+
             services.AddMvc(options =>
             {
                 options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
             });
         }
-        
+
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseDatabaseMigration();
@@ -65,6 +67,11 @@
 
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                  name: "areas",
+                  template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

@@ -2,16 +2,17 @@
 namespace LearningSystem.Data.Migrations
 {
 
-    using LearningSystem.Data;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Infrastructure;
     using Microsoft.EntityFrameworkCore.Metadata;
+    using Microsoft.EntityFrameworkCore.Migrations;
     using System;
 
     [DbContext(typeof(LearningSystemDbContext))]
-    partial class LearningSystemContextModelSnapshot : ModelSnapshot
+    [Migration("20171122112348_UserTrainerRelation")]
+    partial class UserTrainerRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

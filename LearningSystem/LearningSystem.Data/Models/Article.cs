@@ -3,18 +3,18 @@
     using System;
     using System.ComponentModel.DataAnnotations;
 
+    using static DataConstants;
     public class Article
     {
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(50)]
-        [MinLength(3)]
+        [MaxLength(ArticleTitleMaxLength)]
+        [MinLength(ArticleTitleMinLength)]
         public string Title { get; set; }
 
         [Required]
-        [MaxLength(2000)]
-        [MinLength(3)]
+        [MinLength(ArticleContentMinLength)]
         public string Content { get; set; }
 
         public DateTime PublishedDate { get; set; }

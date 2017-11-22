@@ -4,18 +4,20 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using static DataConstants;
+
     public class Course
     {
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(50)]
-        [MinLength(3)]
+        [MaxLength(CourseNameMaxLength)]
+        [MinLength(CourseNameMinLength)]
         public string Name { get; set; }
 
         [Required]
-        [MaxLength(2000)]
-        [MinLength(3)]
+        [MaxLength(CourseDescriptionMaxLength)]
+        [MinLength(CourseDescriptionMinLength)]
         public string Description { get; set; }
 
         public string TrainerId { get; set; }

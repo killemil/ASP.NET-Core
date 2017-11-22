@@ -1,6 +1,6 @@
-﻿namespace LearningSystem.Web.Infrastructure
+﻿namespace LearningSystem.Web
 {
-    public class GlobalConstants
+    public class WebConstants
     {
         public const string AdminRole = "Admin";
 

@@ -3,7 +3,6 @@
     using Microsoft.EntityFrameworkCore.Metadata;
     using Microsoft.EntityFrameworkCore.Migrations;
     using System;
-    using System.Collections.Generic;
 
     public partial class CreateModels : Migration
     {

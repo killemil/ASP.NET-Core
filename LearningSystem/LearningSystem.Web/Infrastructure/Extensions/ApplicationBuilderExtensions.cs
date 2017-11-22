@@ -2,7 +2,6 @@
 {
     using LearningSystem.Data;
     using LearningSystem.Data.Models;
-    using LearningSystem.Web.Infrastructure;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
@@ -30,31 +29,28 @@
                 Task
                     .Run(async () =>
                     {
-                        var adminName = GlobalConstants.AdminRole;
+                        var adminName = WebConstants.AdminRole;
 
-                        var hasRoles = await roleManager.Roles.CountAsync();
-
-                        if (hasRoles == 0)
+                        var roles = new[]
                         {
-                            await roleManager.CreateAsync(new IdentityRole
-                            {
-                                Name = adminName
-                            });
+                            adminName,
+                            WebConstants.BlogAuthor,
+                            WebConstants.Student,
+                            WebConstants.Trainer
+                        };
 
-                            await roleManager.CreateAsync(new IdentityRole
-                            {
-                                Name = GlobalConstants.BlogAuthor
-                            });
+                        foreach (var role in roles)
+                        {
+                            var hasRoles = await roleManager.RoleExistsAsync(role);
 
-                            await roleManager.CreateAsync(new IdentityRole
+                            if (!hasRoles)
                             {
-                                Name = GlobalConstants.Student
-                            });
 
-                            await roleManager.CreateAsync(new IdentityRole
-                            {
-                                Name = GlobalConstants.Trainer
-                            });
+                                await roleManager.CreateAsync(new IdentityRole
+                                {
+                                    Name = role
+                                });
+                            }
                         }
 
                         var adminUser = await userManager.FindByNameAsync(adminName);
