@@ -32,6 +32,7 @@
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="Blog" asp-controller="Articles" asp-action="All">Blog</a></li>
+                    <li><a asp-area="" asp-controller="Users" asp-action="Courses">My Courses</a></li>
                     @if (User.IsInRole(WebConstants.AdminRole))
                     {
                         <li class="dropdown">
@@ -41,6 +42,10 @@
                                 <li><a asp-area="Admin" asp-controller="Users" asp-action="All">Users</a></li>
                             </ul>
                         </li>
+                    }
+                    @if (User.IsInRole(WebConstants.Trainer))
+                    {
+                        <li><a asp-area="" asp-controller="Trainers" asp-action="Courses">Trainer Panel</a></li>
                     }
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")

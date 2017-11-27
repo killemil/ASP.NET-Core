@@ -1,6 +1,7 @@
 ﻿namespace LearningSystem.Web.Controllers
 {
     using LearningSystem.Data.Models;
+    using LearningSystem.Services;
     using LearningSystem.Web.Models.ManageViewModels;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authorization;
@@ -52,6 +53,8 @@
             {
                 Username = user.UserName,
                 Email = user.Email,
+                Name = user.Name,
+                BirthDate = user.BirthDate,
                 PhoneNumber = user.PhoneNumber,
                 IsEmailConfirmed = user.EmailConfirmed,
                 StatusMessage = StatusMessage
@@ -93,6 +96,24 @@
                 {
                     throw new ApplicationException($"Unexpected error occurred setting phone number for user with ID '{user.Id}'.");
                 }
+            }
+
+            var nameIsChanged = model.Name != user.Name;
+            var birthDateIsChanged = model.BirthDate != user.BirthDate;
+
+            if (nameIsChanged)
+            {
+                user.Name = model.Name;
+            }
+
+            if (birthDateIsChanged)
+            {
+                user.BirthDate = model.BirthDate;
+            }
+
+            if (nameIsChanged || birthDateIsChanged)
+            {
+                await this.userManager.UpdateAsync(user);
             }
 
             StatusMessage = "Your profile has been updated";

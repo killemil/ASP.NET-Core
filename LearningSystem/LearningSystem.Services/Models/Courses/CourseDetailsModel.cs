@@ -16,9 +16,9 @@
 
         public IEnumerable<string> StudentsInCourse { get; set; }
 
-        public void ConfigureMapping(Profile profile)
+        public void ConfigureMapping(Profile mapper)
         {
-            profile.CreateMap<Course, CourseDetailsModel>()
+            mapper.CreateMap<Course, CourseDetailsModel>()
                 .ForMember(cdm => cdm.TrainerName, cfg => cfg.MapFrom(c => c.Trainer.Name))
                 .ForMember(cdm => cdm.NumberOfStudents, cfg => cfg.MapFrom(c => c.Students.Count))
                 .ForMember(cdm => cdm.StudentsInCourse, cfg => cfg.MapFrom(c => c.Students.Select(sc => sc.User.UserName)));

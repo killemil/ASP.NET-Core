@@ -9,6 +9,8 @@ namespace LearningSystem.Web.Views.Manage
 {
     public static class ManageNavPages
     {
+        public static string MyCourses => "My Courses";
+
         public static string ActivePageKey => "ActivePage";
 
         public static string Index => "Index";
@@ -22,6 +24,8 @@ namespace LearningSystem.Web.Views.Manage
         public static string IndexNavClass(ViewContext viewContext) => PageNavClass(viewContext, Index);
 
         public static string ChangePasswordNavClass(ViewContext viewContext) => PageNavClass(viewContext, ChangePassword);
+
+        public static string Courses(ViewContext viewContext) => PageNavClass(viewContext, MyCourses);
 
         public static string ExternalLoginsNavClass(ViewContext viewContext) => PageNavClass(viewContext, ExternalLogins);
 
