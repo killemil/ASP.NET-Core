@@ -32,7 +32,6 @@
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="Blog" asp-controller="Articles" asp-action="All">Blog</a></li>
-                    <li><a asp-area="" asp-controller="Users" asp-action="Courses">My Courses</a></li>
                     @if (User.IsInRole(WebConstants.AdminRole))
                     {
                         <li class="dropdown">

@@ -5,6 +5,6 @@
 
     public interface IUsersService
     {
-        IEnumerable<UserCourseModel> Courses(string studentId);
+        UserProfileCourses Courses(string studentId);
     }
 }

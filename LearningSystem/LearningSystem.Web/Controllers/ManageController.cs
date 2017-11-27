@@ -22,6 +22,7 @@
         private readonly SignInManager<User> signInManager;
         private readonly ILogger logger;
         private readonly UrlEncoder urlEncoder;
+        private readonly IUsersService users;
 
         private const string AuthenicatorUriFormat = "otpauth://totp/{0}:{1}?secret={2}&issuer={0}&digits=6";
 
@@ -29,12 +30,14 @@
           UserManager<User> userManager,
           SignInManager<User> signInManager,
           ILogger<ManageController> logger,
-          UrlEncoder urlEncoder)
+          UrlEncoder urlEncoder,
+          IUsersService users)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.logger = logger;
             this.urlEncoder = urlEncoder;
+            this.users = users;
         }
 
         [TempData]
@@ -236,6 +239,15 @@
             StatusMessage = "Your password has been set.";
 
             return RedirectToAction(nameof(SetPassword));
+        }
+
+        public IActionResult Courses()
+        {
+            var userId = this.userManager.GetUserId(User);
+
+            var courses = this.users.Courses(userId);
+
+            return View(courses);
         }
 
         [HttpGet]

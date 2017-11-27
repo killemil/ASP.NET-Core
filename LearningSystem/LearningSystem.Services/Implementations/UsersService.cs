@@ -15,12 +15,11 @@
             this.db = db;
         }
 
-        public IEnumerable<UserCourseModel> Courses(string studentId)
+        public UserProfileCourses Courses(string studentId)
             => this.db.Users
             .Where(u => u.Id == studentId)
-            .SelectMany(u=> u.Courses)
-            .ProjectTo<UserCourseModel>(new { studentId })
-            .ToList();
+            .ProjectTo<UserProfileCourses>(new { studentId = studentId })
+            .FirstOrDefault();
 
     }
 }

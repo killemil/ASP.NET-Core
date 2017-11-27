@@ -16,8 +16,6 @@
 
         public Grade? Grade { get; set; }
 
-        public string Trainer { get; set; }
-
         public void ConfigureMapping(Profile mapper)
         {
             string studentId = null;
@@ -28,10 +26,6 @@
                         .Where(s => s.UserId == studentId)
                         .Select(s => s.Grade)
                         .FirstOrDefault()));
-
-            mapper
-                .CreateMap<Course, UserCourseModel>()
-                .ForMember(u => u.Trainer, cfg => cfg.MapFrom(c => c.Trainer.Name));
         }
     }
 }
