@@ -22,10 +22,14 @@
                 .FirstOrDefault();
 
         public IEnumerable<UserListingModel> Find(string searchText)
-            => this.db.Users
+        {
+            searchText = searchText ?? string.Empty;
+            return this.db.Users
                 .OrderBy(u => u.UserName)
                 .Where(u => u.Name.ToLower().Contains(searchText.ToLower()))
                 .ProjectTo<UserListingModel>()
                 .ToList();
+
+        }
     }
 }
