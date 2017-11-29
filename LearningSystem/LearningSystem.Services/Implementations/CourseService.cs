@@ -22,6 +22,13 @@
                 .ProjectTo<CourseListingModel>()
                 .ToList();
 
+        public IEnumerable<CourseListingModel> Find(string searchText)
+            => this.db.Courses
+            .OrderByDescending(c => c.Id)
+            .Where(c => c.Name.ToLower().Contains(searchText.ToLower()))
+            .ProjectTo<CourseListingModel>()
+            .ToList();
+
         public CourseDetailsModel ById(int id)
             => this.db.Courses
                 .Where(c => c.Id == id)

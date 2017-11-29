@@ -6,5 +6,7 @@
     public interface IUsersService
     {
         UserProfileCourses Courses(string studentId);
+
+        IEnumerable<UserListingModel> Find(string searchText);
     }
 }

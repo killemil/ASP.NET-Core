@@ -1,32 +1,34 @@
-﻿@model IEnumerable<CourseListingModel>
+﻿@model HomeIndexViewModel
 @{
     ViewData["Title"] = "Home Page";
 }
 
+<h2>All Courses</h2>
 <div class="container">
     <div class="row">
-        <h2>All Courses</h2>
+        <form asp-action="Search">
+            <div class="input-group col-sm-12 col-md-4">
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filters <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li class="text-center">
+                            <input asp-for="SearchInCourses" />
+                            <label asp-for="SearchInCourses"></label>
+                        </li>
+                        <li class="text-center">
+                            <input asp-for="SearchInStudents" />
+                            <label asp-for="SearchInStudents"></label>
+                        </li>
+                    </ul>
+                </div>
+                <input asp-for="SearchText" class="form-control" placeholder="Search...">
+                <div class="input-group-btn">
+                    <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
-<div class="panel-group">
-    @foreach (var course in Model)
-    {
-        <div class="panel panel-primary">
-            <div class="panel-heading">@course.Name</div>
-            <div class="panel-body">@course.Description</div>
-            <div class="panel-footer">
-                <strong>
-                    Start Date: @course.StartDate.ToShortDateString()
-                    <span class="pull-right">End Date: @course.EndDate.ToShortDateString()</span>
-                </strong>
-                <hr />
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <p>
-                        <a href="/courses/details/@course.Id" class="btn btn-info">More Info</a>
-                    </p>
-                }
-            </div>
-        </div>
-    }
-</div>
+<hr />
+
+@Html.Partial("_CourseListingPartial", Model.Courses)

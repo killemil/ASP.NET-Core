@@ -1,0 +1,34 @@
+﻿@model SearchListingModel
+@{
+    ViewData["Title"] = $"Search Results for {Model.SeachText}";
+}
+<h2>@ViewData["Title"]</h2>
+
+@if (Model.Courses.Any())
+{
+    <h3>Found courses:</h3>
+    @Html.Partial("_CourseListingPartial", Model.Courses)
+}
+else
+{
+    <h3>No courses found in this search.</h3>
+}
+<hr />
+@if (Model.Users.Any())
+{
+    <h3>Found users:</h3>
+    <div class="panel-group">
+        @foreach (var user in Model.Users)
+        {
+            <div class="panel panel-success">
+                <div class="panel-heading">@user.Name</div>
+                <div class="panel-body">@user.Username</div>
+                <div class="panel-body">Courses : @user.Courses</div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <h3> No users found in this search.</h3>
+}
